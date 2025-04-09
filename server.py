@@ -1,11 +1,12 @@
 from mcp.server.fastmcp import FastMCP
 import requests
+import os
 
 # Initialize the MCP server
 app = FastMCP("AlphaVantage MCP Server")
 
 # Hardcoded for demo — in prod, use dotenv/env vars
-ALPHA_VANTAGE_KEY = "demo"
+ALPHA_VANTAGE_KEY = os.getenv("ALPHA_VANTAGE_KEY")
 
 # -- TOOLS ----------------------------------------------------
 @app.tool()
