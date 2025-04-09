@@ -1,4 +1,4 @@
-from mcp.server.fastmcp import FastMCP
+from mcp.server.fastmcp import FastMCP, Context as SamplingContext
 import requests
 import os
 from dotenv import load_dotenv
@@ -62,11 +62,18 @@ Explain the base and quote currency, rate, and any interesting trends.
 def should_buy(pair: str, context: SamplingContext) -> str:
     """
     Ask the model whether it is a good time to buy the given currency pair.
-    This demonstrates MCP sampling (server asking model for input).
+    This demonstrates MCP sampling by yielding a prompt to the client.
     """
-    prompt = f"Given recent market conditions, should we buy {pair}? Justify your reasoning."
-    completion = context.sample(prompt)
-    return completion
+    prompt = (
+        f"You are a financial analyst. Should we buy the currency pair {pair}?\n"
+        f"Consider macroeconomic trends and market sentiment. "
+        f"Respond with a clear yes/no and a short justification."
+    )
+
+    # Yielding the prompt initiates a sampling request to the client
+    response = yield prompt
+
+    return response
 
 # -- ROOTS (OPTIONAL) -----------------------------------------
 @app.tool()
