@@ -1,6 +1,9 @@
 from mcp.server.fastmcp import FastMCP
 import requests
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Initialize the MCP server
 app = FastMCP("AlphaVantage MCP Server")
