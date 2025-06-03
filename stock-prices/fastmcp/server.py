@@ -10,7 +10,7 @@ app = Server("stock-earnings-server")
 
 
 @app.list_resources()
-async def list_resources() -> list[types.ResourceTemplate]:
+async def list_earnings_resources_handler() -> list[types.ResourceTemplate]:
     return [
         types.ResourceTemplate(
             uriTemplate="stock://{symbol}/earnings",
@@ -22,7 +22,7 @@ async def list_resources() -> list[types.ResourceTemplate]:
 
 
 @app.read_resource()
-async def read_resource(uri: AnyUrl) -> str:
+async def read_earnings_resource_handler(uri: AnyUrl) -> str:
     parsed = str(uri)
 
     if not parsed.startswith("stock://") or not parsed.endswith("/earnings"):
